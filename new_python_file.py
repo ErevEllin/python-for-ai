@@ -25,13 +25,12 @@ def get_grid_from_google_doc(url):
 
     for _, row in data_table.iterrows():
         # Normalize X to start at index 0
-        grid_x = int(row["x-coordinate"])
+        grid_x = int(row["x-coordinate"] - x_cord_min)
 
         # Normalize Y to start at index 0
-        grid_y = int(row["y-coordinate"])
+        grid_y = int(y_cord_max - row["y-coordinate"])
         # Assign character to grid position
-        # grid[grid_y, grid_x] = str(row.iloc[1])
-        print(grid_x, grid_y)
+        grid[grid_y, grid_x] = str(row.iloc[1])
 
     for row in grid:
         print("".join(row))
