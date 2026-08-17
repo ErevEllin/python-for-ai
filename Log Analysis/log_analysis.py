@@ -12,3 +12,4 @@ with open("system_logs.txt", "r", encoding="utf-8") as file:
 # Convert into a structured table
 df = pd.DataFrame(log_entries, columns=["Datestamp", "Timestamp", "LogLevel", "Message"])
 print(df.head())
+
