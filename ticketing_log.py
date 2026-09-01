@@ -28,10 +28,11 @@ def clean_ticket(raw_ticket_text: str) -> str:
     {raw_ticket_text}
     \"\"\"
     """
-    
+    print(prompt)
+
     # 3. Call the Gemini 2.5 Flash model (available on the free tier)
     response = client.models.generate_content(
-        model='gemini-2.5-flash',
+        model='gemini-3.7 flash',
         contents=prompt,
         config=types.GenerateContentConfig(
             # Force the model to reply ONLY with the JSON structure matching our Pydantic model
@@ -62,6 +63,6 @@ if __name__ == "__main__":
     
     print("Processing ticket...")
     json_output = clean_ticket(messy_log)
-    
+
     print("\nStructured JSON Result:")
     print(json_output)
