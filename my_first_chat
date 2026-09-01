@@ -1,0 +1,44 @@
+import os
+import sys
+from google import genai
+from google.genai.errors import APIError
+
+def start_interactive_chat():
+    # Ensure the API key is set before starting
+    if not os.environ.get("GEMINI_API_KEY"):
+        print("Error: GEMINI_API_KEY environment variable is not set.", file=sys.stderr)
+        return
+
+    # Initialize the standard Google GenAI client
+    client = genai.Client()
+    
+    # Start the stateful chat session
+    print("Initializing Gemini session (using gemini-3.6-flash)...")
+    chat = client.chats.create(model="gemini-3.6-flash")
+    
+    print("\nChat session started! Type your message and press Enter. (Type 'quit' to exit)\n")
+    
+    while True:
+        try:
+            user_input = input("You: ").strip()
+            if not user_input:
+                continue
+                
+            if user_input.lower() in ['quit', 'exit']:
+                print("Ending chat session. Goodbye!")
+                break
+            
+            # Send the message; the SDK appends this and the response to chat.get_history()
+            response = chat.send_message(user_input)
+            
+            # Extract and print the response string
+            print(f"\nGemini: {response.text}\n")
+            
+        except APIError as e:
+            print(f"\nAPI Error: {e}\n", file=sys.stderr)
+        except KeyboardInterrupt:
+            print("\nSession interrupted. Goodbye!")
+            break
+
+if __name__ == "__main__":
+    start_interactive_chat()
