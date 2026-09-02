@@ -1,8 +1,22 @@
 import os
 import sys
+from google.genai import types
+from pydantic import BaseModel, Field
 from google import genai
 from google.genai.errors import APIError
 
+class StructuredResponse(BaseModel):
+    priority: str = Field(description="Must be one of: Low, Medium, High, Critical")
+    category: str = Field(description="The IT domain, e.g., Hardware, Software, Network, Access/IAM")
+    summary: str = Field(description="A precise, one-sentence summary of the core issue")
+
+resp_schema = types.GenerateContentConfig(
+    response_mime_type="application/json",
+    response_schema=StructuredResponse,
+    temperature=0.1, # Low temperature for consistent classification
+    )    
+
+# format of response  from Gemini will be a JSON string that matches the StructuredResponse model
 def start_interactive_chat():
     # Ensure the API key is set before starting
     if not os.environ.get("GEMINI_API_KEY"):
@@ -14,7 +28,7 @@ def start_interactive_chat():
     
     # Start the stateful chat session
     print("Initializing Gemini session (using gemini-3.6-flash)...")
-    chat = client.chats.create(model="gemini-3.6-flash")
+    chat = client.chats.create(model="gemini-3.6-flash", config=resp_schema,)
     
     print("\nChat session started! Type your message and press Enter. (Type 'quit' to exit)\n")
     
