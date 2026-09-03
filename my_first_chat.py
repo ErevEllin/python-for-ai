@@ -5,11 +5,13 @@ from pydantic import BaseModel, Field
 from google import genai
 from google.genai.errors import APIError
 
+# Define a structured response model for the Gemini model
 class StructuredResponse(BaseModel):
     priority: str = Field(description="Must be one of: Low, Medium, High, Critical")
     category: str = Field(description="The IT domain, e.g., Hardware, Software, Network, Access/IAM")
     summary: str = Field(description="A precise, one-sentence summary of the core issue")
 
+# configuration for the Gemini model to ensure structured output
 resp_schema = types.GenerateContentConfig(
     response_mime_type="application/json",
     response_schema=StructuredResponse,
@@ -27,8 +29,8 @@ def start_interactive_chat():
     client = genai.Client()
     
     # Start the stateful chat session
-    print("Initializing Gemini session (using gemini-3.6-flash)...")
-    chat = client.chats.create(model="gemini-3.6-flash", config=resp_schema,)
+    print("Initializing Gemini session (using gemini-3.7-flash)...")
+    chat = client.chats.create(model="gemini-3.7-flash", config=resp_schema,)
     
     print("\nChat session started! Type your message and press Enter. (Type 'quit' to exit)\n")
     
@@ -53,6 +55,6 @@ def start_interactive_chat():
         except KeyboardInterrupt:
             print("\nSession interrupted. Goodbye!")
             break
-
+#------------------------------------End of def start_interactive_chat---------------------------------------------------
 if __name__ == "__main__":
     start_interactive_chat()
