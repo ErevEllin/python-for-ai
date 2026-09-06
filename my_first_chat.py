@@ -10,6 +10,8 @@ class StructuredResponse(BaseModel):
     priority: str = Field(description="Must be one of: Low, Medium, High, Critical")
     category: str = Field(description="The IT domain, e.g., Hardware, Software, Network, Access/IAM")
     summary: str = Field(description="A precise, one-sentence summary of the core issue")
+    Suggestions: str = Field(description="A concise list of actionable suggestions for resolving the issue")
+    
 
 # configuration for the Gemini model to ensure structured output
 resp_schema = types.GenerateContentConfig(
@@ -23,14 +25,14 @@ def start_interactive_chat():
     # Ensure the API key is set before starting
     if not os.environ.get("GEMINI_API_KEY"):
         print("Error: GEMINI_API_KEY environment variable is not set.", file=sys.stderr)
-        return
+        return 
 
     # Initialize the standard Google GenAI client
     client = genai.Client()
     
     # Start the stateful chat session
-    print("Initializing Gemini session (using gemini-3.7-flash)...")
-    chat = client.chats.create(model="gemini-3.7-flash", config=resp_schema,)
+    print("Initializing Gemini session (using gemini-3.8-flash)...")
+    chat = client.chats.create(model="gemini-3.8-flash", config=resp_schema,)
     
     print("\nChat session started! Type your message and press Enter. (Type 'quit' to exit)\n")
     
@@ -49,6 +51,7 @@ def start_interactive_chat():
             
             # Extract and print the response string
             print(f"\nGemini: {response.text}\n")
+            print (f"history: {chat.get_history()}")
             
         except APIError as e:
             print(f"\nAPI Error: {e}\n", file=sys.stderr)

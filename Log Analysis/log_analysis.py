@@ -1,5 +1,5 @@
 import pandas as pd
-
+import psutil
 log_entries = []
 
 with open("system_logs.txt", "r", encoding="utf-8") as file:
@@ -13,3 +13,4 @@ with open("system_logs.txt", "r", encoding="utf-8") as file:
 df = pd.DataFrame(log_entries, columns=["Datestamp", "Timestamp", "LogLevel", "Message"])
 print(df.head())
 
+df.to_csv("structured_logs.csv", index=False)  # Save to CSV for further analysis
