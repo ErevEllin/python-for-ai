@@ -2,6 +2,7 @@ import os
 from google import genai
 from google.genai import types
 from pydantic import BaseModel, Field
+import psutil
 
 # 1. Define the desired output structure using Pydantic
 class StructuredTicket(BaseModel):

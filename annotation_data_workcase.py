@@ -1,4 +1,4 @@
-import numpy as np
+
 import numpy as np
 import pandas as pd
 
@@ -8,9 +8,9 @@ import pandas as pd
 url = "https://docs.google.com/document/d/e/2PACX-1vSvM5gDlNvt7npYHhp_XfsJvuntUhq184By5xO_pA4b_gCWeXb6dM6ZxwN8rE6S4ghUsCj2VKR21oEP/pub"
 
 
-def get_grid_from_google_doc(url):
+def get_grid_from_google_doc(api_url):
 
-    list_of_tables = pd.read_html(url, header=0)
+    list_of_tables = pd.read_html(api_url, header=0)
     data_table = list_of_tables[0]
     x_cord_min = int(data_table["x-coordinate"].min())
     x_cord_max = int(data_table["x-coordinate"].max())
