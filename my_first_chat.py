@@ -30,10 +30,11 @@ def start_interactive_chat():
     # Initialize the standard Google GenAI client
     client = genai.Client()
     
+
     # Start the stateful chat session
     print("Initializing Gemini session (using gemini-3.8-flash)...")
-    chat = client.chats.create(model="gemini-3.8-flash", config=resp_schema,)
-    
+    chat = client.chats.create(model="gemini-3.8-flash", config=resp_schema,) # Google-AI
+        
     print("\nChat session started! Type your message and press Enter. (Type 'quit' to exit)\n")
     
     while True:
