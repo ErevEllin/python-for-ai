@@ -18,7 +18,9 @@ resp_schema = types.GenerateContentConfig(
     response_mime_type="application/json",
     response_schema=StructuredResponse,
     temperature=0.1, # Low temperature for consistent classification
+    system_instruction="You are an IT support assistant. Classify the user's issue into a structured JSON format with priority, category, summary, and actionable suggestions.",
     )    
+
 
 # format of response  from Gemini will be a JSON string that matches the StructuredResponse model
 def start_interactive_chat():
@@ -34,7 +36,7 @@ def start_interactive_chat():
     # Start the stateful chat session
     print("Initializing Gemini session (using gemini-3.8-flash)...")
     chat = client.chats.create(model="gemini-3.8-flash", config=resp_schema,) # Google-AI
-        
+    # chat= client.interactions.create  # Google-AI
     print("\nChat session started! Type your message and press Enter. (Type 'quit' to exit)\n")
     
     while True:
