@@ -103,5 +103,9 @@ def format_windows_diagnostics(report: dict[str, Any]) -> str:
 
 
 def run_windows_diagnostics() -> str:
-    """ if user reports a slow windows machine collect and format a diagnostic snapshot for use by the chat client."""
+    """  Runs diagnostic scripts to check CPU, RAM, and disk load.
+    
+    CRITICAL RULE: Call this tool ONLY if the user explicitly reports 
+    that a Windows operating system machine is running slowly or lagging. 
+    Do NOT call this tool for other OS types (Mac, Linux) or unrelated issues."""
     return format_windows_diagnostics(collect_windows_diagnostics())
