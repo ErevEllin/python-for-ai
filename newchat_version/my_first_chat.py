@@ -20,6 +20,9 @@ resp_schema = types.GenerateContentConfig(
     response_schema=StructuredResponse,
     temperature=0.1, # Low temperature for consistent classificationo
     tools=[run_windows_diagnostics] # should run if user report a slow win machine
+    system_instructions = """You are an expert IT Support triage assistant. Analyze the user's input and provide
+    a structured response in JSON format, including suggestrions for resolving the issue. If the user reports a slow Windows machine,
+    run the 'run_windows_diagnostics' tool to gather relevant information.""",
     )    
 
 # format of response  from Gemini will be a JSON string that matches the StructuredResponse model
@@ -35,7 +38,7 @@ def start_interactive_chat():
 
     # Start the stateful chat session
     print("Initializing Gemini session (using gemini-3.8-flash)...")
-    chat = client.chats.create(model="gemini-3.8-flash", config=resp_schema,) # Google-AI
+    chat = client.chats.create(model="gemini-3.8-flash", config=resp_schema) # Google-AI
         
     print("\nChat session started! Type your message and press Enter. (Type 'quit' to exit)\n")
     
