@@ -15,11 +15,11 @@ class StructuredResponse(BaseModel):
     
 
 # configuration for the Gemini model to ensure structured output
-resp_schema = types.GenerateContentConfig(
+resp_schema = types.GenerateContentConfig (
     response_mime_type="application/json",
     response_schema=StructuredResponse,
     temperature=0.1, # Low temperature for consistent classificationo
-    tools=[run_windows_diagnostics] # should run if user report a slow win machine
+    tools=[run_windows_diagnostics],# should run if user report a slow win machine
     system_instructions = """You are an expert IT Support triage assistant. Analyze the user's input and provide
     a structured response in JSON format, including suggestrions for resolving the issue. If the user reports a slow Windows machine,
     run the 'run_windows_diagnostics' tool to gather relevant information.""",
