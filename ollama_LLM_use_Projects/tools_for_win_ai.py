@@ -4,7 +4,7 @@ import os
 import platform
 import time
 from typing import Any
-
+from langchain_core.tools import tool   
 import psutil
 
 
@@ -101,7 +101,7 @@ def format_windows_diagnostics(report: dict[str, Any]) -> str:
     )
     return "\n".join(lines)
 
-
+@tool
 def run_windows_diagnostics() -> str:
     """  Runs diagnostic scripts to check CPU, RAM, and disk load.
     

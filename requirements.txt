@@ -3,3 +3,6 @@ pandas
 psutil
 google
 pydantic
+lxml
+langchain-ollama
+langgraph
