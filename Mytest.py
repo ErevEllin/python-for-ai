@@ -1,5 +1,6 @@
 def new_func():
-    for i in range(1,6,3):
-        print(i)
-
+    resp={'messages':(1,2,3,4,5,6)}
+    for v in resp['messages']:
+        print (v)
+        
 new_func()
