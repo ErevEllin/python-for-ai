@@ -2,6 +2,7 @@ numpy
 pandas
 psutil
 google
+google_genai
 pydantic
 lxml
 langchain-ollama

@@ -42,12 +42,11 @@ def start_interactive_chat():
 
     # Initialize the standard Google GenAI client
     # client = genai.Client()
-    model = ChatOllama(model="qwen2.5-coder", temperature=0.1, base_url="http://localhost:11434") #initialize ollama LLM
+    model = ChatOllama(model="qwen2.5-coder:14b", temperature=0.1, base_url="http://localhost:11434") #initialize ollama LLM
 
     # Start the stateful chat session
     print("Initializing Ollama session (using qwen2.5-coder)...")
-    model = ChatOllama(model="qwen2.5-coder", temperature=0.1) # Google-AI
-        
+            
     print("\nChat session started! Type your message and press Enter. (Type 'quit' to exit)\n")
 
     agent = create_agent(
@@ -56,8 +55,9 @@ def start_interactive_chat():
         system_prompt="""You are an expert IT Support triage assistant.
           Analyze the user's input and provide a structured response in JSON format, 
           including suggestions for resolving the issue. If the user reports a slow Windows machine,
-          run the 'run_windows_diagnostics' tool to gather relevant information.""",
+          run the 'run_windows_diagnostics' tool to gather relevant information and added to suggestions field in response""",
         response_format=StructuredResponse,
+        
     )
     while True:
         try:
@@ -68,14 +68,10 @@ def start_interactive_chat():
             if user_input.lower() in ['quit', 'exit']:
                 print("Ending chat session. Goodbye!")
                 break
-
-            response = agent.generate_response(user_input)
-            print(f"\nOllama: {response.text}\n")
-            print(f"history: {agent.get_history()}")
-
-        # except APIError as e:
-        #     print(f"An error occurred while communicating with Ollama: {e}", file=sys.stderr)
-        #     continue
+            response = agent.invoke({"messages": [{"role": "user", "content": user_input}]})
+            
+            print(f"\nOllama: {response['messages'][-1].content}\n")
+        
         except Exception as e:
             print(f"An unexpected error occurred: {e}", file=sys.stderr)
             continue
