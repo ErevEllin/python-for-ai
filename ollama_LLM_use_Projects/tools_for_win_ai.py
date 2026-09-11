@@ -103,9 +103,12 @@ def format_windows_diagnostics(report: dict[str, Any]) -> str:
     )
     return "\n".join(lines)
 
-@tool
+
 def run_windows_diagnostics() -> str:
     """ CRITICAL RULE: Call this tool ONLY if the user explicitly reports 
     that a Windows operating system machine is running slowly or lagging. 
     Do NOT call this tool for other OS types (Mac, Linux) or unrelated issues."""
     return format_windows_diagnostics(collect_windows_diagnostics())
+
+results = run_windows_diagnostics()
+print (results)
