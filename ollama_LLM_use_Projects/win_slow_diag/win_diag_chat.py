@@ -1,7 +1,7 @@
 import sys
 import os
 import ollama
-from ollama_LLM_use_Projects.win_slow_diag.tools_for_win_ai import run_windows_diagnostics
+from tools_for_win_ai import run_windows_diagnostics
 
 # 2. Define the tool schema so Ollama knows it exists and how to use it
 tools_schema = [
