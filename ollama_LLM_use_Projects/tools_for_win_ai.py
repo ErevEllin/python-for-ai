@@ -1,12 +1,9 @@
-"""Windows performance diagnostics that can be called from the chat client."""
 
 import datetime
 import os
 import platform
 import time
 from typing import Any
-from xml.parsers.expat import model
-from langchain_core.tools import tool   
 import psutil
 
 
@@ -105,10 +102,8 @@ def format_windows_diagnostics(report: dict[str, Any]) -> str:
 
 
 def run_windows_diagnostics() -> str:
-    """ CRITICAL RULE: Call this tool ONLY if the user explicitly reports 
-    that a Windows operating system machine is running slowly or lagging. 
-    Do NOT call this tool for other OS types (Mac, Linux) or unrelated issues."""
+    """ """
     return format_windows_diagnostics(collect_windows_diagnostics())
 
-results = run_windows_diagnostics()
-print (results)
+# results = run_windows_diagnostics()
+# print (results)
