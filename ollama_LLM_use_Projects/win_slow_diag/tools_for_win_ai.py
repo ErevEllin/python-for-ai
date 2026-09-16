@@ -102,7 +102,7 @@ def format_windows_diagnostics(report: dict[str, Any]) -> str:
 
 
 def run_windows_diagnostics() -> str:
-    """ """
+    
     return format_windows_diagnostics(collect_windows_diagnostics())
 
 # results = run_windows_diagnostics()
