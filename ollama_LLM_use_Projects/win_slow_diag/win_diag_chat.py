@@ -1,7 +1,7 @@
 import sys
 import os
 import ollama
-from tools_for_win_ai import run_windows_diagnostics
+from ollama_LLM_use_Projects.win_slow_diag.tools_for_win_ai import run_windows_diagnostics
 
 # 2. Define the tool schema so Ollama knows it exists and how to use it
 tools_schema = [
@@ -23,7 +23,7 @@ tools_schema = [
 def start_interactive_chat():
    
   # Initialize the message history with a system prompt and the user request
-    messages = [ {"role": "system", "content": "You are a helpful assistant. Use your tools whenever a user reports a slow windows machine."},             
+    messages = [ {"role": "system", "content": "You are a helpful IT support assistant. Use your tools whenever a user reports a slow windows machine."},             
             ]  
     # Step 1: Send the initial prompt and tool definitions to Ollama
     model_name = 'qwen2.5:latest'
